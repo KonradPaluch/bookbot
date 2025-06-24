@@ -1,4 +1,15 @@
+from sys import argv, exit
 from stats import get_char_count, get_num_words, sort_characters
+
+
+def check_arguments():
+    if len(argv) < 2:
+        print("Usage: python3 main.py <path_to_book>")
+        exit(1)
+
+
+def read_arguments():
+    return argv[1]
 
 
 def get_book_text(path_to_file):
@@ -23,13 +34,15 @@ def print_report(word_count, book_location, sorted_characters):
 
 
 def main():
-    path_to_book = './books/frankenstein.txt'
-    loaded_book = get_book_text(path_to_book)
+    check_arguments()
+    book_path = read_arguments()
+
+    loaded_book = get_book_text(book_path)
 
     word_count = get_num_words(loaded_book)
     sorted_chars = sort_characters(get_char_count(loaded_book))
 
-    print_report(word_count, path_to_book, sorted_chars)
+    print_report(word_count, book_path, sorted_chars)
 
 
 main()
